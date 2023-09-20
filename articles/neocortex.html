@@ -87,7 +87,6 @@ HKUST</h4>
 <span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="co"># devtools::install_github("YangLabHKUST/mfair")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yanglabhkust.github.io/mfair/">mfair</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: rpart</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape" class="external-link">reshape2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
@@ -126,6 +125,8 @@ to fit the MFAI model with top three factors.</p>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">neocortex</span><span class="op">$</span><span class="va">expression</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">neocortex</span><span class="op">$</span><span class="va">sample_info</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Region"</span>, <span class="st">"Stage"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is completely observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 7.64309222668172!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>,</span>
@@ -269,7 +270,7 @@ gene sets.</p>
 <span></span>
 <span><span class="co"># Relative weight</span></span>
 <span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">gene_factors</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
+<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">gene_factors</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Total number of genes M = 2,000</span></span>
 <span><span class="va">ntop</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">*</span> <span class="fl">0.15</span> <span class="co"># We use the top 300 weighted genes in each factor to form the gene sets</span></span>
